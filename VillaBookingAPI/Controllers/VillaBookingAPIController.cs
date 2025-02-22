@@ -3,7 +3,8 @@ using VillaBookingAPI.Models;
 
 namespace VillaBookingAPI.Controllers
 {
-    [Route("api/VillaBookingAPI")]
+    //[Route("api/VillaBookingAPI")]
+    [Route("api/[controller]")]
     [ApiController]
     public class VillaBookingAPIController : ControllerBase
     {
