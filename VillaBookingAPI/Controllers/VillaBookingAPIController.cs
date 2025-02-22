@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VillaBookingAPI.Models;
+using VillaBookingAPI.Models.Dto;
 
 namespace VillaBookingAPI.Controllers
 {
@@ -9,12 +10,12 @@ namespace VillaBookingAPI.Controllers
     public class VillaBookingAPIController : ControllerBase
     {
         [HttpGet]
-        public IEnumerable<Villa> GetVillas()
+        public IEnumerable<VillaDTO> GetVillas()
         {
-            return new List<Villa>
+            return new List<VillaDTO>
             {
-                new Villa{Id = 1, Name="Pool view"},
-                new Villa{Id = 2, Name = "River view"}
+                new VillaDTO { Id = 1, Name = "Pool view" },
+                new VillaDTO { Id = 2, Name = "River view" }
             };
         }
     }
