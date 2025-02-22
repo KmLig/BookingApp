@@ -1,0 +1,6 @@
+@VillaBookingAPI_HostAddress = http://localhost:5109
+
+GET {{VillaBookingAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
