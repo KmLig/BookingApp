@@ -13,7 +13,16 @@ namespace VillaBookingAPI.Controllers
         [HttpGet("{id:int}")]
         public ActionResult<VillaDTO> GetVilla(int id)
         {
-            return Ok(VillaStore.villaList.FirstOrDefault(v => v.Id == id));
+            if (id == 0)
+            {
+                return BadRequest();
+            }
+            var villa = VillaStore.villaList.FirstOrDefault(v => v.Id == id);
+            if (villa == null)
+            {
+                return NotFound();
+            }
+            return Ok(villa);
         }
         [HttpGet]
         public ActionResult<IEnumerable<VillaDTO>> GetVillas()
