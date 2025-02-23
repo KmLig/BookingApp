@@ -16,6 +16,13 @@ namespace VillaBookingAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<VillaDTO> CreateVilla([FromBody] VillaDTO villaDTO)
         {
+
+            // if we don't use the apicontroller attr we have to validate the model by ourselves using ModelState
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+
             if (villaDTO == null)
             {
                 return StatusCode(StatusCodes.Status400BadRequest);
