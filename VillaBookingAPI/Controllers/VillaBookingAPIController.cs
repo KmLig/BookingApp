@@ -23,6 +23,12 @@ namespace VillaBookingAPI.Controllers
             //    return BadRequest(ModelState);
             //}
 
+            if(VillaStore.villaList.FirstOrDefault(v => v.Name.Equals(villaDTO.Name, StringComparison.CurrentCultureIgnoreCase)) != null)
+            {
+                ModelState.AddModelError("CustomError", "Villa already exists");
+                return BadRequest(ModelState);
+            }
+
             if (villaDTO == null)
             {
                 return StatusCode(StatusCodes.Status400BadRequest);
