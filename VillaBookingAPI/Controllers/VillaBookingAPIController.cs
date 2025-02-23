@@ -11,14 +11,14 @@ namespace VillaBookingAPI.Controllers
     public class VillaBookingAPIController : ControllerBase
     {
         [HttpGet("{id:int}")]
-        public VillaDTO GetVilla(int id)
+        public ActionResult<VillaDTO> GetVilla(int id)
         {
-            return VillaStore.villaList.FirstOrDefault(v => v.Id == id);
+            return Ok(VillaStore.villaList.FirstOrDefault(v => v.Id == id));
         }
         [HttpGet]
-        public IEnumerable<VillaDTO> GetVillas()
+        public ActionResult<IEnumerable<VillaDTO>> GetVillas()
         {
-            return VillaStore.villaList;
+            return Ok(VillaStore.villaList);
         }
     }
 }
