@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
 using VillaBookingAPI.Data;
 using VillaBookingAPI.Models.Dto;
 
@@ -84,6 +85,30 @@ namespace VillaBookingAPI.Controllers
             villa.Occupancy = villaDTO.Occupancy;
             villa.Sqrt = villaDTO.Sqrt;
             return NoContent();
+        }
+
+        [HttpPatch("{id:int}", Name = "PartiallyUpdateVilla")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult PartiallyUpdateVilla(int id, [FromBody] JsonPatchDocument<VillaDTO> patchDTO)
+        {
+            if(id == 0 || patchDTO == null)
+            {
+                return BadRequest();
+            }
+            
+            var villa = VillaStore.villaList.FirstOrDefault(v => v.Id == id);
+            if (villa == null)
+            {
+                return NotFound();
+            }
+            patchDTO.ApplyTo(villa, ModelState);
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return NoContent(); 
         }
 
         [HttpGet("{id:int}", Name = "GetVilla")]
