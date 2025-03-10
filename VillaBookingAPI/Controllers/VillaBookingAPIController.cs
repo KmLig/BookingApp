@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using VillaBookingAPI.Data;
+using VillaBookingAPI.Logging;
 using VillaBookingAPI.Models.Dto;
 
 namespace VillaBookingAPI.Controllers
@@ -10,9 +11,9 @@ namespace VillaBookingAPI.Controllers
     [ApiController]
     public class VillaBookingAPIController : ControllerBase
     {
-        private readonly ILogger<VillaBookingAPIController> _logger;
+        private readonly ILogging _logger;
 
-        public VillaBookingAPIController(ILogger<VillaBookingAPIController> logger)
+        public VillaBookingAPIController(ILogging logger)
         {
             _logger = logger;
         }
@@ -126,7 +127,7 @@ namespace VillaBookingAPI.Controllers
         {
             if(id == 0)
             {
-                _logger.LogError("Id is 0");
+                _logger.Log("Id is 0", "error");
                 return BadRequest();
             }
             var villa = VillaStore.villaList.FirstOrDefault(v => v.Id == id);
@@ -140,7 +141,7 @@ namespace VillaBookingAPI.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<VillaDTO>> GetVillas() { 
-            _logger.LogInformation("Getting all villas");
+            _logger.Log("Getting all villas", "");
             return Ok(VillaStore.villaList); 
         }
     }
