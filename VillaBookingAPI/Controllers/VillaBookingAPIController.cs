@@ -11,11 +11,9 @@ namespace VillaBookingAPI.Controllers
     [ApiController]
     public class VillaBookingAPIController : ControllerBase
     {
-        private readonly ILogging _logger;
 
         public VillaBookingAPIController(ILogging logger)
         {
-            _logger = logger;
         }
 
         [HttpPost]
@@ -127,7 +125,6 @@ namespace VillaBookingAPI.Controllers
         {
             if(id == 0)
             {
-                _logger.Log("Id is 0", "error");
                 return BadRequest();
             }
             var villa = VillaStore.villaList.FirstOrDefault(v => v.Id == id);
@@ -141,7 +138,6 @@ namespace VillaBookingAPI.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<VillaDTO>> GetVillas() { 
-            _logger.Log("Getting all villas", "");
             return Ok(VillaStore.villaList); 
         }
     }
