@@ -1,9 +1,14 @@
 
+using Microsoft.EntityFrameworkCore;
+using VillaBookingAPI.Data;
 using VillaBookingAPI.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddDbContext<ApplicationDBContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("VillaBookingConnection")));
 
 builder.Services.AddControllers(option =>
 {
